@@ -36,7 +36,7 @@ Friend Class FeatureModel
 
     Public ReadOnly Property Enabled As Boolean Implements IFeatureModel.Enabled
         Get
-            Return Exists AndAlso Not feature.World.Avatar.IsDead
+            Return Exists
         End Get
     End Property
 

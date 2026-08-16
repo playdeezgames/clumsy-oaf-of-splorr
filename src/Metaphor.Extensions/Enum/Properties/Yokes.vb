@@ -1,3 +1,3 @@
-﻿Public Module Yokes
-    Public Const DESTINATION As String = NameOf(DESTINATION)
+﻿Friend Module Yokes
+    Friend Const DESTINATION As String = NameOf(DESTINATION)
 End Module

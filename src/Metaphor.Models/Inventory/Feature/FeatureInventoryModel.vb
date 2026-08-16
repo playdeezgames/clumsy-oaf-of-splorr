@@ -1,5 +1,4 @@
-﻿Imports Metaphor.Extensions
-Imports Metaphor.Persistence
+﻿Imports Metaphor.Persistence
 
 Friend Class FeatureInventoryModel
     Implements IInventoryModel
@@ -12,7 +11,7 @@ Friend Class FeatureInventoryModel
 
     Public ReadOnly Property HasItems As Boolean Implements IInventoryModel.HasItems
         Get
-            Return feature.Inventory.HasItems AndAlso Not feature.HasTag(Tags.SUPPRESS_ITEMS)
+            Return feature.Inventory.HasItems
         End Get
     End Property
 

@@ -1,2 +1,2 @@
-﻿Public Module Modes
+﻿Friend Module Modes
 End Module
