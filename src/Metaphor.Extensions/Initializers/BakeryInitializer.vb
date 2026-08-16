@@ -11,7 +11,6 @@ Friend Module BakeryInitializer
 
     Private Function InitializeRecipeBox(context As IInitializationContext) As FeatureInitializer
         Return Sub(recipeBox)
-                   recipeBox.Inventory.CreateRecipeCard()
                End Sub
     End Function
 
@@ -23,9 +22,6 @@ Friend Module BakeryInitializer
 
     Private Function InitializeSupplyDrawer(context As IInitializationContext) As FeatureInitializer
         Return Sub(drawer)
-                   drawer.Inventory.CreateCakeboard()
-                   drawer.Inventory.CreateCakeboard()
-                   drawer.Inventory.CreateCakeboard()
                End Sub
     End Function
 
@@ -78,11 +74,6 @@ Friend Module BakeryInitializer
 
     Private Function InitializeCupboard(context As IInitializationContext) As FeatureInitializer
         Return Sub(cupboard)
-                   cupboard.Inventory.CreateMixingBowl()
-                   cupboard.Inventory.CreateMeasuringCup()
-                   cupboard.Inventory.CreateMeasuringSpoons()
-                   cupboard.Inventory.CreateWoodenSpoon()
-                   cupboard.Inventory.CreateCakePan()
                End Sub
     End Function
 
