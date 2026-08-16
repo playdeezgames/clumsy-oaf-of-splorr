@@ -1,5 +1,5 @@
-# Cake of SPLORR!!
+# Clumsy Oaf of SPLORR!!
 
 A Production of TheGrumpyGameDev
 
-For Girly Game Jam #4
+For Soulslike Game Jam #3

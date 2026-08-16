@@ -5,8 +5,6 @@ Friend Module BlueRoomInitializer
     Friend Function Initialize(context As IInitializationContext) As Persistence.LocationInitializer
         Return Sub(room)
                    room.CreateN00b(context.ChosenName, InitializeAvatar(context))
-                   room.CreateDoor("Door to Bakery", InitializeBakeryDoor(context))
-                   room.CreateBed(InitializeBed(context))
                End Sub
     End Function
     Private Function InitializeBed(context As IInitializationContext) As FeatureInitializer

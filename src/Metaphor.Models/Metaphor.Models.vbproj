@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Metaphor.Initializers\Metaphor.Initializers.vbproj" />
+    <ProjectReference Include="..\Metaphor.Extensions\Metaphor.Extensions.vbproj" />
     <ProjectReference Include="..\TGGD.Models\TGGD.Models.vbproj" />
   </ItemGroup>
 

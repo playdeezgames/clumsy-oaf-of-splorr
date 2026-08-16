@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TGGD.Initializers\TGGD.Initializers.vbproj" />
+    <ProjectReference Include="..\TGGD.Extensions\TGGD.Extensions.vbproj" />
   </ItemGroup>
 
 </Project>

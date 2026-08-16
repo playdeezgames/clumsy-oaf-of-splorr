@@ -10,7 +10,7 @@ rm -f ./pub-linux/*.pdb
 rm -f ./pub-windows/*.pdb
 rm -f ./pub-mac/*.pdb
 rm -f ./pub-html/*.pdb
-butler push pub-windows thegrumpygamedev/cake-of-splorr:windows
-butler push pub-linux thegrumpygamedev/cake-of-splorr:linux
-butler push pub-mac thegrumpygamedev/cake-of-splorr:mac
-butler push pub-html/wwwroot thegrumpygamedev/cake-of-splorr:html
+butler push pub-windows thegrumpygamedev/clumsy-oaf-of-splorr:windows
+butler push pub-linux thegrumpygamedev/clumsy-oaf-of-splorr:linux
+butler push pub-mac thegrumpygamedev/clumsy-oaf-of-splorr:mac
+butler push pub-html/wwwroot thegrumpygamedev/clumsy-oaf-of-splorr:html

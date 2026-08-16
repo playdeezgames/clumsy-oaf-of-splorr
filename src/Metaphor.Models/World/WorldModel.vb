@@ -1,5 +1,4 @@
 ﻿Imports Metaphor.Extensions
-Imports Metaphor.Initializers
 Imports Metaphor.Persistence
 Imports TGGD.Persistence
 Imports TGGD.Processing

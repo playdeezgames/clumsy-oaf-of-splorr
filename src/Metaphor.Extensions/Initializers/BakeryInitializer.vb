@@ -6,15 +6,6 @@ Friend Module BakeryInitializer
                               context As IInitializationContext,
                               blueRoom As ILocation) As LocationInitializer
         Return Sub(bakery)
-                   bakery.CreateDoor("Door to Blue Room", InitializeBlueRoomDoor(context, blueRoom))
-                   bakery.CreateCupboard(InitializeCupboard(context))
-                   bakery.CreateDryPantry(InitializeDryPantry(context))
-                   bakery.CreateBin(InitializeBin(context))
-                   bakery.CreateRefrigerator(InitializeRefrigerator(context))
-                   bakery.CreateOven(InitializeOven(context))
-                   bakery.CreateSupplyDrawer(InitializeSupplyDrawer(context))
-                   bakery.CreateComputer(InitializeComputer(context))
-                   bakery.CreateRecipeBox(InitializeRecipeBox(context))
                End Sub
     End Function
 

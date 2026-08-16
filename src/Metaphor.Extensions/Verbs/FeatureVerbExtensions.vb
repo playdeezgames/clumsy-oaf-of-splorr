@@ -19,13 +19,7 @@ Public Module FeatureVerbExtensions
             {VerbSubtypes.ADD_BAKING_SODA, CanAddIngredient(Counters.BAKING_SODA, False, True)},
             {VerbSubtypes.ADD_SALT, CanAddIngredient(Counters.SALT, False, True)},
             {VerbSubtypes.EMPTY_MIXING_BOWL, AddressOf CanEmptyMixingBowl},
-            {VerbSubtypes.TURN_ON, AddressOf CanTurnOn},
-            {VerbSubtypes.TURN_OFF, AddressOf CanTurnOff},
-            {VerbSubtypes.OPEN_DOOR, AddressOf CanOpenDoor},
-            {VerbSubtypes.BAKE_CAKE, AddressOf CanBakeCake},
-            {VerbSubtypes.PUT_CAKE_PAN_IN, AddressOf CanPutCakePanIn},
             {VerbSubtypes.TAKE_CAKE_PAN_OUT, AddressOf CanTakeCakePanOut},
-            {VerbSubtypes.CLOSE_DOOR, AddressOf CanCloseDoor},
             {VerbSubtypes.BUY_SUPPLIES, AddressOf CanBuySupplies},
             {VerbSubtypes.BUY_CAKE_BOARD, AddressOf CanBuyCakeBoard}
         }
@@ -39,40 +33,8 @@ Public Module FeatureVerbExtensions
     End Function
 
     Private Function CanTakeCakePanOut(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
-        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso
-            feature.HasTag(Tags.OPEN) AndAlso
+        Return feature.HasTag(Tags.OPEN) AndAlso
             feature.Inventory.HasItemOfSubtype(ItemSubtypes.CAKE_PAN)
-    End Function
-
-    Private Function CanPutCakePanIn(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
-        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso
-            feature.HasTag(Tags.OPEN) AndAlso
-            Not feature.Inventory.HasItemOfSubtype(ItemSubtypes.CAKE_PAN) AndAlso
-            actor.Inventory.HasItemOfSubtype(ItemSubtypes.CAKE_PAN)
-    End Function
-
-    Private Function CanBakeCake(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
-        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso
-            feature.HasTag(Tags.ON) AndAlso
-            Not feature.HasTag(Tags.OPEN) AndAlso
-            feature.Inventory.HasItemOfSubtype(ItemSubtypes.CAKE_PAN) AndAlso
-            Not feature.Inventory.GetItemsOfSubtype(ItemSubtypes.CAKE_PAN).Any(Function(x) x.IsDimensionMinimum(Dimensions.BATTER))
-    End Function
-
-    Private Function CanCloseDoor(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
-        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso feature.HasTag(Tags.OPEN)
-    End Function
-
-    Private Function CanOpenDoor(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
-        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso Not feature.HasTag(Tags.OPEN)
-    End Function
-
-    Private Function CanTurnOff(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
-        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso feature.HasTag(Tags.[ON])
-    End Function
-
-    Private Function CanTurnOn(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
-        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso Not feature.HasTag(Tags.[ON])
     End Function
 
     Private Function CanAddIngredient(counterId As String, needsMeasuringCup As Boolean, needsMeasuringSpoons As Boolean) As CanPerformHandler
