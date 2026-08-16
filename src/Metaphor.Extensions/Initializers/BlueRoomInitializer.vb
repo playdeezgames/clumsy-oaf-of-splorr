@@ -7,22 +7,6 @@ Friend Module BlueRoomInitializer
                    room.CreateN00b(context.ChosenName, InitializeAvatar(context))
                End Sub
     End Function
-    Private Function InitializeBed(context As IInitializationContext) As FeatureInitializer
-        Return Sub(bed)
-                   bed.CreateSleepVerb()
-               End Sub
-    End Function
-    Private Function InitializeBakeryDoor(context As IInitializationContext) As FeatureInitializer
-        Return Sub(feature)
-                   Dim bakery = feature.World.CreateLocation(
-                        LocationSubtypes.BAKERY,
-                        "The Aggressively Pink Bakery",
-                        BakeryInitializer.Initialize(context, feature.Location))
-                   feature.SetDestination(bakery)
-                   feature.CreateEnterVerb()
-               End Sub
-    End Function
-
     Private Function InitializeAvatar(context As IInitializationContext) As CharacterInitializer
         Return Sub(character)
                    character.World.Avatar = character

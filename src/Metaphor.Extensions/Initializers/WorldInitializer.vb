@@ -7,8 +7,7 @@ Public Module WorldInitializer
     Public Sub Initialize(world As IWorld, context As IInitializationContext)
         world.Clear()
         world.CreateLocation(LocationSubtypes.BLUE_ROOM, "The Blue Room", BlueRoomInitializer.Initialize(context))
-        world.AddMessage("Welcome to Cake of SPLORR!!")
-        'TODO: describe what to do
+        world.AddMessage("Welcome to Clumsy Oaf of SPLORR!!")
         world.Avatar.Look()
     End Sub
 End Module

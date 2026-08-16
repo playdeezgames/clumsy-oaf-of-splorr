@@ -21,18 +21,7 @@ Public Module ItemVerbExtensions
 #Region "Perform"
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
-            {VerbSubtypes.SELL_CAKE, AddressOf HandleSellCake}
         }
-
-    Private Sub HandleSellCake(verb As IVerb, item As IItem, actor As ICharacter)
-        Dim layers = item.GetCounter(Counters.LAYERS)
-        Dim jools = Grimoire.JOOLS_PER_LAYER * layers
-        actor.AddMessage($"{actor.Name} sells {layers} layer cake for {jools:F2} jools.")
-        actor.ChangeDimension(Dimensions.JOOLS, jools)
-        actor.AddMessage($"{actor.Name} now has {actor.GetDimension(Dimensions.JOOLS):F2} jools.")
-        item.Remove()
-    End Sub
-
     <Extension>
     Sub Perform(verb As IVerb, item As IItem, actor As ICharacter)
         Dim handler As PerformHandler = Nothing
