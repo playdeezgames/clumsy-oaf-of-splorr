@@ -105,4 +105,8 @@ Public Class World
     Public Function GetCharacter(characterId As Guid?) As ICharacter Implements IWorld.GetCharacter
         Return Character.Create(Me, Data, characterId)
     End Function
+
+    Public Function GetFeature(featureId As Guid?) As IFeature Implements IWorld.GetFeature
+        Return Feature.Create(Me, Data, featureId)
+    End Function
 End Class

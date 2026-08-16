@@ -11,4 +11,5 @@ Public Interface IWorld
     Property AdFinish As DateTimeOffset?
     Function GetLocation(locationId As Guid?) As ILocation
     Function GetCharacter(characterId As Guid?) As ICharacter
+    Function GetFeature(featureId As Guid?) As IFeature
 End Interface

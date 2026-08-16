@@ -9,7 +9,17 @@ Public Module FeatureExtensions
     Private Delegate Sub FeatureDescriber(feature As IFeature)
     Private ReadOnly featureDescribers As New Dictionary(Of String, FeatureDescriber) From
         {
+            {FeatureSubtypes.CHECKPOINT, AddressOf DescribeCheckpoint}
         }
+
+    Private Sub DescribeCheckpoint(feature As IFeature)
+        DescribeFeature(feature)
+        Dim avatar = feature.World.Avatar
+        If avatar.IsCurrentCheckpoint(feature) Then
+            avatar.AddMessage($"This is {avatar.Name}'s current checkpoint.")
+        End If
+    End Sub
+
     <Extension>
     Public Sub Describe(feature As IFeature)
         Dim describer As FeatureDescriber = Nothing

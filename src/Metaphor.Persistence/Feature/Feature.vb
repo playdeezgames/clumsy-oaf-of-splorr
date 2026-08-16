@@ -36,7 +36,10 @@ Friend Class Feature
         _data.Entities.Remove(EntityId)
     End Sub
 
-    Friend Shared Function Create(world As IWorld, data As WorldData, featureId As Guid) As IFeature
-        Return New Feature(world, data, featureId)
+    Friend Shared Function Create(world As IWorld, data As WorldData, featureId As Guid?) As IFeature
+        If featureId.HasValue Then
+            Return New Feature(world, data, featureId.Value)
+        End If
+        Return Nothing
     End Function
 End Class

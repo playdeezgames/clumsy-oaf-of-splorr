@@ -2,6 +2,10 @@
 Imports Metaphor.Persistence
 
 Public Module CharacterExtensions
+    <Extension>
+    Public Function IsAvatar(character As ICharacter) As Boolean
+        Return character.World.Avatar.EntityId = character.EntityId
+    End Function
 #Region "Show Status"
     <Extension>
     Public Sub ShowStatus(character As ICharacter)
@@ -24,5 +28,19 @@ Public Module CharacterExtensions
             location.AddMessage($"- {feature.Name}")
         Next
     End Sub
+#End Region
+#Region "Checkpoint"
+    <Extension>
+    Public Sub SetCheckpoint(character As ICharacter, checkpoint As IFeature)
+        character.SetYoke(Yokes.CHECKPOINT, checkpoint.EntityId)
+    End Sub
+    <Extension>
+    Public Function GetCheckpoint(character As ICharacter) As IFeature
+        Return character.World.GetFeature(character.GetYoke(Yokes.CHECKPOINT))
+    End Function
+    <Extension>
+    Public Function IsCurrentCheckpoint(character As ICharacter, checkpoint As IFeature) As Boolean
+        Return character.GetCheckpoint().EntityId = checkpoint.EntityId
+    End Function
 #End Region
 End Module

@@ -7,7 +7,13 @@ Public Module FeatureVerbExtensions
 #Region "Can Perform"
     Private ReadOnly canPerformTable As New Dictionary(Of String, CanPerformHandler) From
         {
+            {VerbSubtypes.SET_CHECKPOINT, AddressOf CanSetCheckpoint}
         }
+
+    Private Function CanSetCheckpoint(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return actor.IsAvatar() AndAlso Not actor.IsCurrentCheckpoint(feature)
+    End Function
+
     <Extension>
     Public Function CanPerform(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
         Dim handler As CanPerformHandler = Nothing
@@ -20,7 +26,14 @@ Public Module FeatureVerbExtensions
 #Region "Perform"
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
+            {VerbSubtypes.SET_CHECKPOINT, AddressOf HandleSetCheckpoint}
         }
+
+    Private Sub HandleSetCheckpoint(verb As IVerb, feature As IFeature, actor As ICharacter)
+        actor.AddMessage($"{actor.Name} sets checkpoint.")
+        actor.SetCheckpoint(feature)
+    End Sub
+
     <Extension>
     Sub Perform(verb As IVerb, feature As IFeature, actor As ICharacter)
         Dim handler As PerformHandler = Nothing
