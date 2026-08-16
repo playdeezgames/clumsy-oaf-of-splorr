@@ -15,7 +15,7 @@ Friend Class ChooseNamePrompt
     End Function
 
     Public Overrides Function Run() As IDialogPrompt
-        Return DialogPrompt.CreateStringPrompt("What is your name, girl?", AddressOf ChooseName)
+        Return DialogPrompt.CreateStringPrompt("What is your name?", AddressOf ChooseName)
     End Function
 
     Private Function ChooseName(value As String) As IDialog
