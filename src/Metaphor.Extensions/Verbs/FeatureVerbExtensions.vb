@@ -26,8 +26,35 @@ Public Module FeatureVerbExtensions
 #Region "Perform"
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
-            {VerbSubtypes.SET_CHECKPOINT, AddressOf HandleSetCheckpoint}
+            {VerbSubtypes.SET_CHECKPOINT, AddressOf HandleSetCheckpoint},
+            {VerbSubtypes.TOUCH, AddressOf HandleTouch},
+            {VerbSubtypes.ENTER, AddressOf HandleEnter}
         }
+
+    Private Sub HandleEnter(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim nextLocation = feature.GetDestination()
+        actor.AddMessage($"{actor.Name} goes through {feature.Name}.")
+        actor.Location = nextLocation
+        actor.AddMessage($"{actor.Name} is in {nextLocation.Name}.")
+    End Sub
+#Region "Touch"
+    Private ReadOnly touchHandlers As New Dictionary(Of String, PerformHandler) From
+        {
+            {FeatureSubtypes.CACTUS, AddressOf HandleTouchCactus}
+        }
+    Private Sub HandleTouchCactus(verb As IVerb, feature As IFeature, actor As ICharacter)
+        actor.AddMessage($"{actor.Name} feels a prick.")
+        actor.Die()
+    End Sub
+    Private Sub HandleTouch(verb As IVerb, feature As IFeature, actor As ICharacter)
+        actor.AddMessage($"{actor.Name} touches {feature.Name}.")
+        Dim touchHandler As PerformHandler = Nothing
+        If touchHandlers.TryGetValue(feature.EntitySubtype, touchHandler) Then
+            touchHandler.Invoke(verb, feature, actor)
+        End If
+    End Sub
+
+#End Region
 
     Private Sub HandleSetCheckpoint(verb As IVerb, feature As IFeature, actor As ICharacter)
         actor.AddMessage($"{actor.Name} sets checkpoint.")

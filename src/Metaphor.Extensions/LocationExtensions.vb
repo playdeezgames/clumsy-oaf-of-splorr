@@ -9,6 +9,28 @@ Public Module LocationExtensions
     End Function
 #End Region
 #Region "Features"
+#Region "Doors"
+    <Extension>
+    Friend Function CreateDoor(location As ILocation, direction As String, destination As ILocation) As IFeature
+        Return location.CreateFeature(
+            FeatureSubtypes.DOOR,
+            $"Door going {direction}",
+            Sub(feature)
+                feature.SetYoke(Yokes.DESTINATION, destination.EntityId)
+                feature.CreateVerb(VerbSubtypes.ENTER, "Enter")
+            End Sub)
+    End Function
+#End Region
+#Region "Cactus"
+    <Extension>
+    Friend Function CreateCactus(location As ILocation) As IFeature
+        Return location.CreateFeature(FeatureSubtypes.CACTUS, "Cactus", AddressOf InitializeCactus)
+    End Function
+
+    Private Sub InitializeCactus(feature As IFeature)
+        feature.CreateVerb(VerbSubtypes.TOUCH, "Touch")
+    End Sub
+#End Region
 #Region "Checkpoint"
     <Extension>
     Friend Function CreateCheckpoint(location As ILocation) As IFeature

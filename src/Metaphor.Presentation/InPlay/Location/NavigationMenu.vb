@@ -25,8 +25,8 @@ Friend Class NavigationMenu
                 Append(AddressOf ChooseCharacters).
                 Concat(Model.Location.Features.All.Select(AddressOf ChooseFeature)).
                 Append(AddressOf ChooseLook).
-                Append(AddressOf ChooseWatchAd).
-                Append(AddressOf ChooseGameMenu)
+                Append(AddressOf InPlay.ChooseWatchAd).
+                Append(AddressOf InPlay.ChooseGameMenu)
         End Get
     End Property
 
@@ -37,10 +37,6 @@ Friend Class NavigationMenu
                         $"{featureModel.Name}...",
                         FeatureMenu.Launch(c, m, p, featureModel))
                End Function
-    End Function
-
-    Private Function ChooseWatchAd(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
-        Return DialogChoice.CreateEnabled("Watch Ad...", WatchAdActivity.Launch(context, model, previous))
     End Function
 
     Private Function ChooseStatus(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
@@ -72,10 +68,6 @@ Friend Class NavigationMenu
 
     Private Function ChooseGround(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
         Return DialogChoice.Create(model.Location.Ground.HasItems, "Ground...", GroundMenu.Launch(context, model, previous))
-    End Function
-
-    Private Function ChooseGameMenu(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
-        Return DialogChoice.CreateEnabled("Gämë Mënü", GameMenu.Launch(context, model, previous))
     End Function
 
     Friend Shared Function Launch(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As DialogSource

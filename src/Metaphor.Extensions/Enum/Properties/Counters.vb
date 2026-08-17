@@ -1,2 +1,5 @@
 ﻿Friend Module Counters
+    Friend Const HEALTH As String = NameOf(HEALTH)
+    Friend Const MAZE_COLUMN As String = NameOf(MAZE_COLUMN)
+    Friend Const MAZE_ROW As String = NameOf(MAZE_ROW)
 End Module
