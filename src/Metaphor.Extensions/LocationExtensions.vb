@@ -19,6 +19,8 @@ Public Module LocationExtensions
     Private Sub InitializeSlime(character As ICharacter)
         character.SetTag(Tags.ENEMY)
         character.InitializeCounter(Counters.HEALTH, 25, 0, 25)
+        character.SetCounter(Counters.ATTACK, 25)
+        character.SetCounter(Counters.DEFEND, 0)
         character.SetMetadata(Metadatas.POSTURE, Postures.REST)
     End Sub
 #End Region

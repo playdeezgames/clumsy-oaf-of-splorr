@@ -6,6 +6,24 @@ Public Module CharacterExtensions
     Public Function IsAvatar(character As ICharacter) As Boolean
         Return character.World.Avatar.EntityId = character.EntityId
     End Function
+#Region "Counters"
+    <Extension>
+    Friend Function GetHealth(character As ICharacter) As Integer
+        Return character.GetCounter(Counters.HEALTH)
+    End Function
+    <Extension>
+    Friend Function GetStamina(character As ICharacter) As Integer
+        Return character.GetCounter(Counters.STAMINA)
+    End Function
+    <Extension>
+    Friend Function GetAttack(character As ICharacter) As Integer
+        Return character.GetCounter(Counters.ATTACK)
+    End Function
+    <Extension>
+    Friend Function GetDefend(character As ICharacter) As Integer
+        Return character.GetCounter(Counters.DEFEND)
+    End Function
+#End Region
 #Region "Show Status"
     <Extension>
     Public Sub ShowStatus(character As ICharacter)
@@ -114,8 +132,35 @@ Public Module CharacterExtensions
         character.AddMessage($"{character.Name} parries.")
     End Sub
     <Extension>
-    Public Sub DoFastAttack(character As ICharacter)
-        character.AddMessage($"{character.Name} does fast attack.")
+    Public Sub DoFastAttack(attacker As ICharacter)
+        attacker.AddMessage($"{attacker.Name} does fast attack.")
+        Dim defender = attacker.Location.GetEnemies().First
+        Dim attack = attacker.GetAttack()
+        Dim defend = defender.GetDefend()
+        Dim damage = Math.Max(attack - defend, 0)
+        attacker.AddMessage($"{attacker.Name} does {damage} damage to {defender.Name}.")
+        If damage > 0 Then
+            defender.ChangeCounter(Counters.HEALTH, -damage)
+            If defender.IsDead Then
+                attacker.AddMessage($"{attacker.Name} kills {defender.Name}.")
+                If Not defender.IsAvatar Then
+                    defender.Remove()
+                End If
+            Else
+                attacker.AddMessage($"{defender.Name} has {defender.GetCounterStatistic(Counters.HEALTH)} health.")
+            End If
+        End If
+        attacker.DoCounterAttacks()
+        If Not attacker.IsDead Then
+            attacker.Look()
+        End If
+    End Sub
+    <Extension>
+    Private Sub DoCounterAttacks(defender As ICharacter)
+        Dim attackers = defender.Location.GetEnemies()
+        For Each attacker In attackers
+            defender.AddMessage($"{attacker.Name} takes action.")
+        Next
     End Sub
     <Extension>
     Public Sub DoStrongAttack(character As ICharacter)
