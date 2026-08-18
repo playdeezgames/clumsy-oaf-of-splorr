@@ -17,9 +17,22 @@ Public Module CharacterExtensions
     <Extension>
     Public Sub Look(character As ICharacter)
         Dim location = character.Location
-        character.AddMessage($"{character.Name} is in {location.Name}.")
-        DescribeFeatures(location)
+        If character.InCombat Then
+            DescribeCombat(character)
+        Else
+            character.AddMessage($"{character.Name} is in {location.Name}.")
+            DescribeFeatures(location)
+        End If
     End Sub
+
+    Private Sub DescribeCombat(character As ICharacter)
+        Dim enemies = character.Location.GetEnemies()
+        character.AddMessage($"{character.Name} is in combat with:")
+        For Each x In enemies
+            character.AddMessage($"- {x.Name}")
+        Next
+    End Sub
+
     Private Sub DescribeFeatures(location As ILocation)
         If Not location.HasFeatures Then
             Return
@@ -63,6 +76,48 @@ Public Module CharacterExtensions
         character.Location = character.GetCheckpoint().Location
         character.AddMessage($"{character.Name} respawns in {character.Location.Name}.")
         character.MaximumCounter(Counters.HEALTH)
+    End Sub
+#End Region
+#Region "Combat"
+    <Extension>
+    Public Function InCombat(character As ICharacter) As Boolean
+        Return character.IsAvatar AndAlso character.Location.Characters.Any(Function(x) x.HasTag(Tags.ENEMY_TAG) And Not x.IsDead)
+    End Function
+    <Extension>
+    Public Function CanDodge(character As ICharacter) As Boolean
+        Return character.IsAvatar
+    End Function
+    <Extension>
+    Public Function CanParry(character As ICharacter) As Boolean
+        Return character.IsAvatar
+    End Function
+    <Extension>
+    Public Function CanFastAttack(character As ICharacter) As Boolean
+        Return character.IsAvatar
+    End Function
+    <Extension>
+    Public Function CanStrongAttack(character As ICharacter) As Boolean
+        Return character.IsAvatar
+    End Function
+    <Extension>
+    Public Sub DoRest(character As ICharacter)
+        character.AddMessage($"{character.Name} rests.")
+    End Sub
+    <Extension>
+    Public Sub DoDodge(character As ICharacter)
+        character.AddMessage($"{character.Name} dodges.")
+    End Sub
+    <Extension>
+    Public Sub DoParry(character As ICharacter)
+        character.AddMessage($"{character.Name} parries.")
+    End Sub
+    <Extension>
+    Public Sub DoFastAttack(character As ICharacter)
+        character.AddMessage($"{character.Name} does fast attack.")
+    End Sub
+    <Extension>
+    Public Sub DoStrongAttack(character As ICharacter)
+        character.AddMessage($"{character.Name} does strong attack.")
     End Sub
 #End Region
 End Module

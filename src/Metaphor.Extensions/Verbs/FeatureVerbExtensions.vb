@@ -35,7 +35,7 @@ Public Module FeatureVerbExtensions
         Dim nextLocation = feature.GetDestination()
         actor.AddMessage($"{actor.Name} goes through {feature.Name}.")
         actor.Location = nextLocation
-        actor.AddMessage($"{actor.Name} is in {nextLocation.Name}.")
+        actor.Look()
     End Sub
 #Region "Touch"
     Private ReadOnly touchHandlers As New Dictionary(Of String, PerformHandler) From

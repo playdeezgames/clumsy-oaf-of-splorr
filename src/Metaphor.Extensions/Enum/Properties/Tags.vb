@@ -1,3 +1,3 @@
 ﻿Friend Module Tags
-    Friend Const ENEMY As String = NameOf(ENEMY)
+    Friend Const ENEMY_TAG As String = NameOf(ENEMY_TAG)
 End Module
