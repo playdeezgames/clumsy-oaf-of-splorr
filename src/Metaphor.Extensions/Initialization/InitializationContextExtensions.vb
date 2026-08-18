@@ -100,9 +100,11 @@ Friend Module InitializationContextExtensions
     <Extension>
     Private Function InitializeN00b(context As IInitializationContext, checkpoint As IFeature) As CharacterInitializer
         Const MAXIMUM_HEALTH = 100
+        Const MAXIMUM_STAMINA = 10
         Return Sub(character)
                    character.SetCheckpoint(checkpoint)
                    character.InitializeCounter(Counters.HEALTH, MAXIMUM_HEALTH, 0, MAXIMUM_HEALTH)
+                   character.InitializeCounter(Counters.STAMINA, MAXIMUM_STAMINA, 0, MAXIMUM_STAMINA)
                    character.World.Avatar = character
                End Sub
     End Function

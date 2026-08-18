@@ -9,7 +9,7 @@ Public Module LocationExtensions
     End Function
     <Extension>
     Friend Function GetEnemies(location As ILocation) As IEnumerable(Of ICharacter)
-        Return location.Characters.Where(Function(x) x.HasTag(Tags.ENEMY_TAG))
+        Return location.Characters.Where(Function(x) x.HasTag(Tags.ENEMY))
     End Function
 #Region "Slime"
     <Extension>
@@ -17,8 +17,9 @@ Public Module LocationExtensions
         Return location.CreateCharacter(CharacterSubtypes.SLIME, "Slime", AddressOf InitializeSlime)
     End Function
     Private Sub InitializeSlime(character As ICharacter)
-        character.SetTag(Tags.ENEMY_TAG)
+        character.SetTag(Tags.ENEMY)
         character.InitializeCounter(Counters.HEALTH, 25, 0, 25)
+        character.SetMetadata(Metadatas.POSTURE, Postures.REST)
     End Sub
 #End Region
 #End Region

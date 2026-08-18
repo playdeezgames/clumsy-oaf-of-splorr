@@ -26,10 +26,12 @@ Public Module CharacterExtensions
     End Sub
 
     Private Sub DescribeCombat(character As ICharacter)
+        character.AddMessage($"Health: {character.GetCounterStatistic(Counters.HEALTH)}")
+        character.AddMessage($"Stamina: {character.GetCounterStatistic(Counters.STAMINA)}")
         Dim enemies = character.Location.GetEnemies()
         character.AddMessage($"{character.Name} is in combat with:")
-        For Each x In enemies
-            character.AddMessage($"- {x.Name}")
+        For Each enemy In enemies
+            character.AddMessage($"- {enemy.Name}(Health: {enemy.GetCounterStatistic(Counters.HEALTH)}, Posture: {enemy.GetMetadata(Metadatas.POSTURE)})")
         Next
     End Sub
 
@@ -81,7 +83,7 @@ Public Module CharacterExtensions
 #Region "Combat"
     <Extension>
     Public Function InCombat(character As ICharacter) As Boolean
-        Return character.IsAvatar AndAlso character.Location.Characters.Any(Function(x) x.HasTag(Tags.ENEMY_TAG) And Not x.IsDead)
+        Return character.IsAvatar AndAlso character.Location.Characters.Any(Function(x) x.HasTag(Tags.ENEMY) And Not x.IsDead)
     End Function
     <Extension>
     Public Function CanDodge(character As ICharacter) As Boolean
