@@ -1,4 +1,5 @@
 ﻿Imports Metaphor.Persistence
+Imports TGGD.Extensions
 
 Friend Class ItemStackModel
     Implements IItemStackModel

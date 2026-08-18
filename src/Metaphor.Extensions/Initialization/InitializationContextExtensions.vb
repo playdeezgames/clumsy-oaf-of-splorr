@@ -73,15 +73,15 @@ Friend Module InitializationContextExtensions
     End Sub
 
     Private Sub PopulateTwoWay(location As ILocation)
-        location.CreateSlime()
+        Utility.Repeat(RNG.RollDice("1d2"), Sub() location.CreateSlime())
     End Sub
 
     Private Sub PopulateThreeWay(location As ILocation)
-        location.CreateSlime()
+        Utility.Repeat(RNG.RollDice("2d2"), Sub() location.CreateSlime())
     End Sub
 
     Private Sub PopulateFourWay(location As ILocation)
-        location.CreateSlime()
+        Utility.Repeat(RNG.RollDice("3d2"), Sub() location.CreateSlime())
     End Sub
 
     Private Sub PopulateMaze(mazeLocations As IEnumerable(Of ILocation))
