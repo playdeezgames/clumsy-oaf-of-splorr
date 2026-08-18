@@ -57,6 +57,43 @@ Friend Module InitializationContextExtensions
         Dim entrance = RNG.FromEnumerable(mazeLocations)
         room.CreateDoor(Directions.OUT, entrance)
         entrance.CreateDoor(Directions.IN, room)
+        PopulateMaze(mazeLocations)
+    End Sub
+    Private Delegate Sub MazeAreaPopulator(location As ILocation)
+    Private mazeAreaPopulators As New Dictionary(Of Integer, MazeAreaPopulator) From
+        {
+            {4, AddressOf PopulateFourWay},
+            {3, AddressOf PopulateThreeWay},
+            {2, AddressOf PopulateTwoWay},
+            {1, AddressOf PopulateOneWay}
+        }
+
+    Private Sub PopulateOneWay(location As ILocation)
+        location.CreateSlime()
+    End Sub
+
+    Private Sub PopulateTwoWay(location As ILocation)
+        location.CreateSlime()
+    End Sub
+
+    Private Sub PopulateThreeWay(location As ILocation)
+        location.CreateSlime()
+    End Sub
+
+    Private Sub PopulateFourWay(location As ILocation)
+        location.CreateSlime()
+    End Sub
+
+    Private Sub PopulateMaze(mazeLocations As IEnumerable(Of ILocation))
+        Dim groups = mazeLocations.GroupBy(Function(x) x.Features.Count(Function(y) y.EntitySubtype = FeatureSubtypes.DOOR))
+        For Each group In groups
+            Dim populator As MazeAreaPopulator = Nothing
+            If mazeAreaPopulators.TryGetValue(group.Key, populator) Then
+                For Each location In group
+                    populator.Invoke(location)
+                Next
+            End If
+        Next
     End Sub
 #End Region
 

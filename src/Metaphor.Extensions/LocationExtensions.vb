@@ -7,6 +7,15 @@ Public Module LocationExtensions
     Friend Function CreateN00b(location As ILocation, name As String, initializer As CharacterInitializer) As ICharacter
         Return location.CreateCharacter(CharacterSubtypes.N00B, name, initializer)
     End Function
+#Region "Slime"
+    <Extension>
+    Friend Function CreateSlime(location As ILocation) As ICharacter
+        Return location.CreateCharacter(CharacterSubtypes.SLIME, "Slime", AddressOf InitializeSlime)
+    End Function
+    Private Sub InitializeSlime(character As ICharacter)
+        character.SetTag(Tags.ENEMY)
+    End Sub
+#End Region
 #End Region
 #Region "Features"
 #Region "Doors"
