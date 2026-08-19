@@ -1,7 +1,5 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #FB9F9F;
-    color: #FF0065;
 }
 
 article{
@@ -11,15 +9,12 @@ article{
 }
 
 .prompt-title {
-    color: #B13BFF;
 }
 
 .choice-button {
     border-radius: 12px;
     padding: 10px 20px;
-    border: 1px solid #471396;
-    color: #FF00A9;
-    background-color: #FB9F9F;
+    border: 1px solid;
     margin-right: 15px;
     margin-bottom: 15px;
 }
@@ -27,9 +22,7 @@ article{
 input.valid {
     border-radius: 12px;
     padding: 10px 20px;
-    border: 1px solid #FF00a9;
-    color: #FB9F9F;
-    background-color: #FFBFd3;
+    border: 1px solid;
 }
 
 h1:focus {
