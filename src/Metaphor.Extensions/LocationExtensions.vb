@@ -21,7 +21,7 @@ Public Module LocationExtensions
         character.InitializeCounter(Counters.HEALTH, 25, 0, 25)
         character.SetCounter(Counters.ATTACK, 25)
         character.SetCounter(Counters.DEFEND, 0)
-        character.SetMetadata(Metadatas.POSTURE, Postures.REST)
+        character.GeneratePosture()
     End Sub
 #End Region
 #End Region
