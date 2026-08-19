@@ -1,5 +1,6 @@
 ﻿Friend Module Counters
     Friend Const ATTACK As String = NameOf(ATTACK)
+    Friend Const CLUMSINESS As String = NameOf(CLUMSINESS)
     Friend Const DEFEND As String = NameOf(DEFEND)
     Friend Const HEALTH As String = NameOf(HEALTH)
     Friend Const MAZE_COLUMN As String = NameOf(MAZE_COLUMN)

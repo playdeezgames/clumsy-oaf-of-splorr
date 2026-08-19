@@ -7,6 +7,7 @@ Public Module CharacterExtensions
     Public Sub ShowStatus(character As ICharacter)
         character.AddMessage($"Status:")
         character.AddMessage($"Health: {character.GetCounterStatistic(Counters.HEALTH)}")
+        character.AddMessage($"Clumsiness: {character.GetCounterPercentage(Counters.CLUMSINESS)}")
     End Sub
 #End Region
 #Region "Look"
