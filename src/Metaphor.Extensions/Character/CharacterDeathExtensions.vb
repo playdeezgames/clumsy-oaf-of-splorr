@@ -38,7 +38,14 @@ Public Module CharacterDeathExtensions
         character.CreateGravestone()
     End Sub
 
-    Private Sub HandleEnemyDeath(character As ICharacter)
+    Private Sub HandleStandardDeath(character As ICharacter)
+        If character.IsEnemy() Then
+            Dim avatar = character.World.Avatar
+            Dim cruor = character.GetCruor()
+            avatar.ChangeCounter(Counters.CRUOR, cruor)
+            avatar.AddMessage($"{avatar.Name} receives {cruor} cruor.")
+            avatar.AddMessage($"{avatar.Name} now has {avatar.GetCruor()} cruor.")
+        End If
         If Not character.IsAvatar Then
             character.Remove()
         End If
@@ -49,7 +56,7 @@ Public Module CharacterDeathExtensions
         If deathHandlers.TryGetValue(character.EntitySubtype, deathHandler) Then
             deathHandler.Invoke(character)
         Else
-            HandleEnemyDeath(character)
+            HandleStandardDeath(character)
         End If
     End Sub
 #End Region

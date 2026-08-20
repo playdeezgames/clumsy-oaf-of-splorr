@@ -3,8 +3,20 @@ Imports Metaphor.Persistence
 
 Public Module CharacterStatisticsExtensions
     <Extension>
+    Public Function GetCruor(character As ICharacter) As Integer
+        Return character.GetCounter(Counters.CRUOR)
+    End Function
+    <Extension>
+    Public Sub SetCruor(entity As IMetaphorEntity, cruor As Integer)
+        entity.SetCounter(Counters.CRUOR, cruor)
+    End Sub
+    <Extension>
     Public Function IsAvatar(character As ICharacter) As Boolean
         Return character.World.Avatar.EntityId = character.EntityId
+    End Function
+    <Extension>
+    Public Function IsEnemy(character As ICharacter) As Boolean
+        Return character.HasTag(Tags.ENEMY)
     End Function
 #Region "Counters"
     <Extension>

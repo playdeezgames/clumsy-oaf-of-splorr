@@ -109,6 +109,7 @@ Friend Module InitializationContextExtensions
                    character.InitializeCounter(Counters.STAMINA, MAXIMUM_STAMINA, 0, MAXIMUM_STAMINA)
                    character.InitializeCounter(Counters.ATTACK, INITIAL_ATTACK, 0, Integer.MaxValue)
                    character.InitializeCounter(Counters.DEFEND, INITIAL_DEFEND, 0, Integer.MaxValue)
+                   character.InitializeCounter(Counters.CRUOR, 0, 0, Integer.MaxValue)
                    character.InitializeCounter(
                         Counters.CLUMSINESS,
                         Enumerable.Range(0, 6).

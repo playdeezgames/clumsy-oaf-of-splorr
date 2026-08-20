@@ -22,6 +22,9 @@ Friend Module CharacterGravestoneExtensions
     Private Function InitializeGravestone(character As ICharacter) As FeatureInitializer
         Return Sub(feature)
                    character.SetGravestone(feature)
+                   feature.SetCruor(character.GetCruor())
+                   character.SetCruor(0)
+                   feature.CreateVerb(VerbSubtypes.RESTORE_CRUOR, "Restore Cruor")
                End Sub
     End Function
 End Module
