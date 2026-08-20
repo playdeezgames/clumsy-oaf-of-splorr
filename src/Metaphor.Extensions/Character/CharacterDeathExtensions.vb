@@ -22,5 +22,36 @@ Public Module CharacterDeathExtensions
         character.AddMessage($"{character.Name} respawns in {character.Location.Name}.")
         character.MaximumCounter(Counters.HEALTH)
     End Sub
+#Region "Death Handling"
+    Private Delegate Sub DeathHandler(character As ICharacter)
+    Private deathHandlers As New Dictionary(Of String, DeathHandler) From
+        {
+            {CharacterSubtypes.N00B, AddressOf HandleN00bDeath}
+        }
+
+    Private Sub HandleN00bDeath(character As ICharacter)
+        Dim gravestone = character.GetGravestone()
+        If gravestone IsNot Nothing Then
+            character.ClearGravestone()
+            gravestone.Remove()
+        End If
+        character.CreateGravestone()
+    End Sub
+
+    Private Sub HandleEnemyDeath(character As ICharacter)
+        If Not character.IsAvatar Then
+            character.Remove()
+        End If
+    End Sub
+    <Extension>
+    Friend Sub HandleDeath(character As ICharacter)
+        Dim deathHandler As DeathHandler = Nothing
+        If deathHandlers.TryGetValue(character.EntitySubtype, deathHandler) Then
+            deathHandler.Invoke(character)
+        Else
+            HandleEnemyDeath(character)
+        End If
+    End Sub
+#End Region
 #End Region
 End Module

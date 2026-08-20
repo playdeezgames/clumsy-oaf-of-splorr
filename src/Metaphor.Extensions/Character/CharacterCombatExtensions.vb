@@ -95,9 +95,7 @@ Public Module CharacterCombatExtensions
             defender.DoDamage(damage)
             If defender.IsDead Then
                 attacker.AddMessage($"{attacker.Name} kills {defender.Name}.")
-                If Not defender.IsAvatar Then
-                    defender.Remove()
-                End If
+                defender.HandleDeath()
             Else
                 attacker.AddMessage($"{defender.Name} has {defender.GetCounterStatistic(Counters.HEALTH)} health.")
             End If
@@ -154,8 +152,10 @@ Public Module CharacterCombatExtensions
     End Sub
 #End Region
 #End Region
+#Region "Damage"
     <Extension>
     Friend Sub DoDamage(character As ICharacter, damage As Integer)
         character.ChangeCounter(Counters.HEALTH, -damage)
     End Sub
+#End Region
 End Module
