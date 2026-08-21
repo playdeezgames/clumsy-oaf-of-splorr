@@ -8,8 +8,13 @@ Public Module FeatureVerbExtensions
     Private ReadOnly canPerformTable As New Dictionary(Of String, CanPerformHandler) From
         {
             {VerbSubtypes.SET_CHECKPOINT, AddressOf CanSetCheckpoint},
-            {VerbSubtypes.RESTORE_HEALTH, AddressOf CanRestoreHealth}
+            {VerbSubtypes.RESTORE_HEALTH, AddressOf CanRestoreHealth},
+            {VerbSubtypes.IMPROVE_HEALTH, AddressOf CanImproveHealth}
         }
+
+    Private Function CanImproveHealth(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return actor.GetCruor() >= actor.GetHealthImprovementCost()
+    End Function
 
     Private Function CanRestoreHealth(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
         Return Not actor.IsCounterMaximum(Counters.HEALTH)
@@ -36,11 +41,22 @@ Public Module FeatureVerbExtensions
             {VerbSubtypes.ENTER, AddressOf HandleEnter},
             {VerbSubtypes.RESTORE_CRUOR, AddressOf HandleRestoreCruor},
             {VerbSubtypes.RESPAWN, AddressOf HandleRespawn},
-            {VerbSubtypes.RESTORE_HEALTH, AddressOf HandleRestoreHealth}
+            {VerbSubtypes.RESTORE_HEALTH, AddressOf HandleRestoreHealth},
+            {VerbSubtypes.IMPROVE_HEALTH, AddressOf HandleImproveHealth}
         }
 
+    Private Sub HandleImproveHealth(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim cruor = actor.GetHealthImprovementCost()
+        Dim health = Grimoire.HEALTH_MULTIPLIER
+        actor.AddMessage($"{actor.Name} spends {cruor} cruor.")
+        actor.ChangeCounter(Counters.CRUOR, -cruor)
+        actor.AddMessage($"{actor.Name} gains {health} maximum health.")
+        actor.SetCounterMaximum(Counters.HEALTH, actor.GetCounterMaximum(Counters.HEALTH) + health)
+        actor.AddMessage($"{actor.Name} now has {actor.GetCounterStatistic(Counters.HEALTH)} health.")
+    End Sub
+
     Private Sub HandleRestoreHealth(verb As IVerb, feature As IFeature, actor As ICharacter)
-        actor.MaximumCounter(Counters.HEALTH)
+        actor.MaximizeCounter(Counters.HEALTH)
         actor.AddMessage($"{actor.Name} now has {actor.GetCounterStatistic(Counters.HEALTH)} health.")
         actor.World.RespawnEnemies()
     End Sub

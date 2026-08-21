@@ -45,7 +45,7 @@ Public Interface IEntity
     Sub RemoveFromYokage(yokageId As String, identifier As Guid)
     Function GetYokage(yokageId As String) As IEnumerable(Of Guid)
     Function MinimizeCounter(counterId As String) As Integer
-    Function MaximumCounter(counterId As String) As Integer
+    Function MaximizeCounter(counterId As String) As Integer
     Function MinimizeDimension(dimensionId As String) As Double
     Function MaximizeDimension(dimensionId As String) As Double
 End Interface

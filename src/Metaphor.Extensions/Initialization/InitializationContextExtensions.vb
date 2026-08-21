@@ -62,6 +62,7 @@ Friend Module InitializationContextExtensions
     Private Delegate Sub MazeAreaPopulator(location As ILocation)
     Private mazeAreaPopulators As New Dictionary(Of Integer, MazeAreaPopulator) From
         {
+            {5, AddressOf PopulateFourWay},
             {4, AddressOf PopulateFourWay},
             {3, AddressOf PopulateThreeWay},
             {2, AddressOf PopulateTwoWay},
@@ -69,15 +70,15 @@ Friend Module InitializationContextExtensions
         }
 
     Private Sub PopulateOneWay(location As ILocation)
-        location.CreateSpawner(CharacterSubtypes.SLIME)
+        Utility.Repeat(RNG.RollDice("1d4"), Sub() location.CreateSpawner(CharacterSubtypes.SLIME))
     End Sub
 
     Private Sub PopulateTwoWay(location As ILocation)
-        Utility.Repeat(RNG.RollDice("1d1"), Sub() location.CreateSpawner(CharacterSubtypes.SLIME))
+        Utility.Repeat(RNG.RollDice("1d3"), Sub() location.CreateSpawner(CharacterSubtypes.SLIME))
     End Sub
 
     Private Sub PopulateThreeWay(location As ILocation)
-        Utility.Repeat(RNG.RollDice("1d1"), Sub() location.CreateSpawner(CharacterSubtypes.SLIME))
+        Utility.Repeat(RNG.RollDice("1d2"), Sub() location.CreateSpawner(CharacterSubtypes.SLIME))
     End Sub
 
     Private Sub PopulateFourWay(location As ILocation)
@@ -101,8 +102,8 @@ Friend Module InitializationContextExtensions
     Private Function InitializeN00b(context As IInitializationContext, checkpoint As IFeature) As CharacterInitializer
         Const MAXIMUM_HEALTH = 100
         Const MAXIMUM_STAMINA = 10
-        Const INITIAL_ATTACK = 15
-        Const INITIAL_DEFEND = 0
+        Const INITIAL_ATTACK = 20
+        Const INITIAL_DEFEND = 5
         Return Sub(character)
                    character.SetCheckpoint(checkpoint)
                    character.InitializeCounter(Counters.HEALTH, MAXIMUM_HEALTH, 0, MAXIMUM_HEALTH)

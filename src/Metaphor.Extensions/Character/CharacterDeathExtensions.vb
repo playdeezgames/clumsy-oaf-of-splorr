@@ -20,7 +20,8 @@ Public Module CharacterDeathExtensions
         'TODO: drop yer stuff in a gravestone?
         character.Location = character.GetCheckpoint().Location
         character.AddMessage($"{character.Name} respawns in {character.Location.Name}.")
-        character.MaximumCounter(Counters.HEALTH)
+        character.MaximizeCounter(Counters.HEALTH)
+        character.MaximizeCounter(Counters.STAMINA)
     End Sub
 #Region "Death Handling"
     Private Delegate Sub DeathHandler(character As ICharacter)

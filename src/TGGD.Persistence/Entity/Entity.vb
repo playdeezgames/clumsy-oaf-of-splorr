@@ -264,7 +264,7 @@ Public MustInherit Class Entity(Of TData As EntityData)
         Return GetCounter(counterId)
     End Function
 
-    Public Function MaximumCounter(counterId As String) As Integer Implements IEntity.MaximumCounter
+    Public Function MaximizeCounter(counterId As String) As Integer Implements IEntity.MaximizeCounter
         SetCounter(counterId, GetCounterMaximum(counterId))
         Return GetCounter(counterId)
     End Function

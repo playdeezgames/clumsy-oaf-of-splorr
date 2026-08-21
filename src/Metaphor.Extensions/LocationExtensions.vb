@@ -35,7 +35,7 @@ Public Module LocationExtensions
         character.SetTag(Tags.ENEMY)
         character.InitializeCounter(Counters.HEALTH, 25, 0, 25)
         character.SetCounter(Counters.ATTACK, 25)
-        character.SetCounter(Counters.DEFEND, 0)
+        character.SetCounter(Counters.DEFEND, 5)
         character.SetCruor(1)
         character.GeneratePosture()
     End Sub
@@ -72,6 +72,7 @@ Public Module LocationExtensions
     Private Sub InitializeCheckpoint(feature As IFeature)
         feature.CreateVerb(VerbSubtypes.SET_CHECKPOINT, "Set Checkpoint")
         feature.CreateVerb(VerbSubtypes.RESTORE_HEALTH, "Restore Health")
+        feature.CreateVerb(VerbSubtypes.IMPROVE_HEALTH, "Improve Health")
     End Sub
 #End Region
 #End Region

@@ -3,6 +3,10 @@ Imports Metaphor.Persistence
 
 Public Module CharacterStatisticsExtensions
     <Extension>
+    Public Function GetHealthImprovementCost(entity As IMetaphorEntity) As Integer
+        Return entity.GetCounterMaximum(Counters.HEALTH) \ Grimoire.HEALTH_MULTIPLIER
+    End Function
+    <Extension>
     Public Function GetCruor(entity As IMetaphorEntity) As Integer
         Return entity.GetCounter(Counters.CRUOR)
     End Function
