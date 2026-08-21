@@ -69,19 +69,19 @@ Friend Module InitializationContextExtensions
         }
 
     Private Sub PopulateOneWay(location As ILocation)
-        location.CreateSlime()
+        location.CreateSpawner(CharacterSubtypes.SLIME)
     End Sub
 
     Private Sub PopulateTwoWay(location As ILocation)
-        Utility.Repeat(RNG.RollDice("1d1"), Sub() location.CreateSlime())
+        Utility.Repeat(RNG.RollDice("1d1"), Sub() location.CreateSpawner(CharacterSubtypes.SLIME))
     End Sub
 
     Private Sub PopulateThreeWay(location As ILocation)
-        Utility.Repeat(RNG.RollDice("1d1"), Sub() location.CreateSlime())
+        Utility.Repeat(RNG.RollDice("1d1"), Sub() location.CreateSpawner(CharacterSubtypes.SLIME))
     End Sub
 
     Private Sub PopulateFourWay(location As ILocation)
-        Utility.Repeat(RNG.RollDice("1d1"), Sub() location.CreateSlime())
+        Utility.Repeat(RNG.RollDice("1d1"), Sub() location.CreateSpawner(CharacterSubtypes.SLIME))
     End Sub
 
     Private Sub PopulateMaze(mazeLocations As IEnumerable(Of ILocation))

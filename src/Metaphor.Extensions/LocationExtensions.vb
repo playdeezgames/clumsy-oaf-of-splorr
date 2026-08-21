@@ -11,6 +11,21 @@ Public Module LocationExtensions
     Friend Function GetEnemies(location As ILocation) As IEnumerable(Of ICharacter)
         Return location.Characters.Where(Function(x) x.HasTag(Tags.ENEMY))
     End Function
+#Region "Spawner"
+    <Extension>
+    Friend Function CreateSpawner(location As ILocation, characterSubtype As String) As IFeature
+        Return location.CreateFeature(FeatureSubtypes.SPAWNER, $"{characterSubtype} Spawner", InitializeSpawner(characterSubtype))
+    End Function
+
+    Private Function InitializeSpawner(characterSubtype As String) As FeatureInitializer
+        Return Sub(spawner)
+                   spawner.SetMetadata(Metadatas.CHARACTER_SUBTYPE, characterSubtype)
+                   spawner.SetTag(Tags.HIDDEN)
+                   spawner.CreateVerb(VerbSubtypes.RESPAWN, $"Respawn {characterSubtype}")
+                   spawner.World.AddToYokage(Yokages.SPAWNERS, spawner.EntityId)
+               End Sub
+    End Function
+#End Region
 #Region "Slime"
     <Extension>
     Friend Function CreateSlime(location As ILocation) As ICharacter
@@ -56,6 +71,7 @@ Public Module LocationExtensions
     End Function
     Private Sub InitializeCheckpoint(feature As IFeature)
         feature.CreateVerb(VerbSubtypes.SET_CHECKPOINT, "Set Checkpoint")
+        feature.CreateVerb(VerbSubtypes.RESTORE_HEALTH, "Restore Health")
     End Sub
 #End Region
 #End Region

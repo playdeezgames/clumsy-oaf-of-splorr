@@ -3,8 +3,8 @@ Imports Metaphor.Persistence
 
 Public Module CharacterStatisticsExtensions
     <Extension>
-    Public Function GetCruor(character As ICharacter) As Integer
-        Return character.GetCounter(Counters.CRUOR)
+    Public Function GetCruor(entity As IMetaphorEntity) As Integer
+        Return entity.GetCounter(Counters.CRUOR)
     End Function
     <Extension>
     Public Sub SetCruor(entity As IMetaphorEntity, cruor As Integer)

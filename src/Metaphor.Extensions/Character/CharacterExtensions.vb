@@ -34,11 +34,11 @@ Public Module CharacterExtensions
     End Sub
 
     Private Sub DescribeFeatures(location As ILocation)
-        If Not location.HasFeatures Then
+        If Not location.Features.Any(Function(x) Not x.IsHidden) Then
             Return
         End If
         location.AddMessage($"Features:")
-        For Each feature In location.Features
+        For Each feature In location.Features.Where(Function(x) Not x.IsHidden)
             location.AddMessage($"- {feature.Name}")
         Next
     End Sub

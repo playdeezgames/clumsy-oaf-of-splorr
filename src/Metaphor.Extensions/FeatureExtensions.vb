@@ -2,6 +2,10 @@
 Imports Metaphor.Persistence
 
 Public Module FeatureExtensions
+    <Extension>
+    Public Function IsHidden(feature As IFeature) As Boolean
+        Return feature.HasTag(Tags.HIDDEN)
+    End Function
 #Region "Describe"
     Private Sub DescribeFeature(feature As IFeature)
         feature.AddMessage($"It is a {feature.Name}.")

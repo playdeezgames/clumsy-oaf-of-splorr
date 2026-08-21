@@ -1,4 +1,5 @@
-﻿Imports Metaphor.Persistence
+﻿Imports Metaphor.Extensions
+Imports Metaphor.Persistence
 
 Friend Class FeaturesModel
     Implements IFeaturesModel
@@ -11,13 +12,13 @@ Friend Class FeaturesModel
 
     Public ReadOnly Property HasAny As Boolean Implements IFeaturesModel.HasAny
         Get
-            Return world.Avatar.Location.HasFeatures
+            Return world.Avatar.Location.Features.Any(Function(x) Not x.IsHidden)
         End Get
     End Property
 
-    Public ReadOnly Property All As IEnumerable(Of IFeatureModel) Implements IFeaturesModel.All
+    Public ReadOnly Property AllVisible As IEnumerable(Of IFeatureModel) Implements IFeaturesModel.AllVisible
         Get
-            Return world.Avatar.Location.Features.Select(AddressOf FeatureModel.Create)
+            Return world.Avatar.Location.Features.Where(Function(x) Not x.IsHidden).Select(AddressOf FeatureModel.Create)
         End Get
     End Property
 

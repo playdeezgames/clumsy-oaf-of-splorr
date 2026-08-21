@@ -36,7 +36,7 @@ Friend Class FeatureModel
 
     Public ReadOnly Property Enabled As Boolean Implements IFeatureModel.Enabled
         Get
-            Return Exists
+            Return Exists And Not feature.IsHidden
         End Get
     End Property
 
