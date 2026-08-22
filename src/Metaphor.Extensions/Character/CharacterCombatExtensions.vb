@@ -91,7 +91,7 @@ Public Module CharacterCombatExtensions
         Dim defend = defender.GetDefend()
         Dim damage = Math.Max(attack - defend, 0)
         If attacker.HasCounter(Counters.CLUMSINESS) Then
-            damage = damage * attacker.GetCounter(Counters.CLUMSINESS) \ attacker.GetCounterMaximum(Counters.CLUMSINESS)
+            damage = damage * attacker.GetCounterCapacity(Counters.CLUMSINESS) \ attacker.GetCounterMaximum(Counters.CLUMSINESS)
         End If
         attacker.AddMessage($"{attacker.Name} does {damage} damage to {defender.Name}.")
         If damage > 0 Then

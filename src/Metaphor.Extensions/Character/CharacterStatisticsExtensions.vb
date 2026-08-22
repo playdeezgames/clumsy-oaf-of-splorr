@@ -7,6 +7,22 @@ Public Module CharacterStatisticsExtensions
         Return entity.GetCounterMaximum(Counters.HEALTH) \ Grimoire.HEALTH_MULTIPLIER
     End Function
     <Extension>
+    Public Function GetStaminaImprovementCost(entity As IMetaphorEntity) As Integer
+        Return entity.GetCounterMaximum(Counters.STAMINA)
+    End Function
+    <Extension>
+    Public Function GetAttackImprovementCost(entity As IMetaphorEntity) As Integer
+        Return entity.GetCounter(Counters.ATTACK)
+    End Function
+    <Extension>
+    Public Function GetDefendImprovementCost(entity As IMetaphorEntity) As Integer
+        Return entity.GetCounter(Counters.DEFEND)
+    End Function
+    <Extension>
+    Public Function GetClumsinessImprovementCost(entity As IMetaphorEntity) As Integer
+        Return entity.GetCounterCapacity(Counters.CLUMSINESS)
+    End Function
+    <Extension>
     Public Function GetCruor(entity As IMetaphorEntity) As Integer
         Return entity.GetCounter(Counters.CRUOR)
     End Function

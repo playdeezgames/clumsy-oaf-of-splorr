@@ -9,11 +9,31 @@ Public Module FeatureVerbExtensions
         {
             {VerbSubtypes.SET_CHECKPOINT, AddressOf CanSetCheckpoint},
             {VerbSubtypes.RESTORE_HEALTH, AddressOf CanRestoreHealth},
-            {VerbSubtypes.IMPROVE_HEALTH, AddressOf CanImproveHealth}
+            {VerbSubtypes.IMPROVE_HEALTH, AddressOf CanImproveHealth},
+            {VerbSubtypes.IMPROVE_STAMINA, AddressOf CanImproveStamina},
+            {VerbSubtypes.IMPROVE_ATTACK, AddressOf CanImproveAttack},
+            {VerbSubtypes.IMPROVE_DEFEND, AddressOf CanImproveDefend},
+            {VerbSubtypes.IMPROVE_CLUMSINESS, AddressOf CanImproveClumsiness}
         }
 
     Private Function CanImproveHealth(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
         Return actor.GetCruor() >= actor.GetHealthImprovementCost()
+    End Function
+
+    Private Function CanImproveStamina(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return actor.GetCruor() >= actor.GetStaminaImprovementCost()
+    End Function
+
+    Private Function CanImproveAttack(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return actor.GetCruor() >= actor.GetAttackImprovementCost()
+    End Function
+
+    Private Function CanImproveDefend(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return actor.GetCruor() >= actor.GetDefendImprovementCost()
+    End Function
+
+    Private Function CanImproveClumsiness(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return Not actor.IsCounterMinimum(Counters.CLUMSINESS) AndAlso actor.GetCruor() >= actor.GetClumsinessImprovementCost()
     End Function
 
     Private Function CanRestoreHealth(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
@@ -42,8 +62,47 @@ Public Module FeatureVerbExtensions
             {VerbSubtypes.RESTORE_CRUOR, AddressOf HandleRestoreCruor},
             {VerbSubtypes.RESPAWN, AddressOf HandleRespawn},
             {VerbSubtypes.RESTORE_HEALTH, AddressOf HandleRestoreHealth},
-            {VerbSubtypes.IMPROVE_HEALTH, AddressOf HandleImproveHealth}
+            {VerbSubtypes.IMPROVE_STAMINA, AddressOf HandleImproveStamina},
+            {VerbSubtypes.IMPROVE_ATTACK, AddressOf HandleImproveAttack},
+            {VerbSubtypes.IMPROVE_DEFEND, AddressOf HandleImproveDefend},
+            {VerbSubtypes.IMPROVE_CLUMSINESS, AddressOf HandleImproveClumsiness}
         }
+
+    Private Sub HandleImproveClumsiness(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim cruor = actor.GetClumsinessImprovementCost()
+        actor.AddMessage($"{actor.Name} spends {cruor} cruor.")
+        actor.ChangeCounter(Counters.CRUOR, -cruor)
+        actor.AddMessage($"{actor.Name} loses 1 clumsiness.")
+        actor.ChangeCounter(Counters.CLUMSINESS, -1)
+        actor.AddMessage($"{actor.Name} now has {actor.GetCounterPercentage(Counters.CLUMSINESS)} clumsiness.")
+    End Sub
+
+    Private Sub HandleImproveDefend(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim cruor = actor.GetDefendImprovementCost()
+        actor.AddMessage($"{actor.Name} spends {cruor} cruor.")
+        actor.ChangeCounter(Counters.CRUOR, -cruor)
+        actor.AddMessage($"{actor.Name} gains 1 defend.")
+        actor.ChangeCounter(Counters.DEFEND, 1)
+        actor.AddMessage($"{actor.Name} now has {actor.GetCounter(Counters.DEFEND)} defend.")
+    End Sub
+
+    Private Sub HandleImproveAttack(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim cruor = actor.GetAttackImprovementCost()
+        actor.AddMessage($"{actor.Name} spends {cruor} cruor.")
+        actor.ChangeCounter(Counters.CRUOR, -cruor)
+        actor.AddMessage($"{actor.Name} gains 1 defend.")
+        actor.ChangeCounter(Counters.ATTACK, 1)
+        actor.AddMessage($"{actor.Name} now has {actor.GetCounter(Counters.ATTACK)} attack.")
+    End Sub
+
+    Private Sub HandleImproveStamina(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim cruor = actor.GetStaminaImprovementCost()
+        actor.AddMessage($"{actor.Name} spends {cruor} cruor.")
+        actor.ChangeCounter(Counters.CRUOR, -cruor)
+        actor.AddMessage($"{actor.Name} gains 1 maximum stamina.")
+        actor.SetCounterMaximum(Counters.STAMINA, actor.GetCounterMaximum(Counters.STAMINA) + 1)
+        actor.AddMessage($"{actor.Name} now has {actor.GetCounterStatistic(Counters.STAMINA)} stamina.")
+    End Sub
 
     Private Sub HandleImproveHealth(verb As IVerb, feature As IFeature, actor As ICharacter)
         Dim cruor = actor.GetHealthImprovementCost()

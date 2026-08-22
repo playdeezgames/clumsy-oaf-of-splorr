@@ -73,6 +73,10 @@ Public Module LocationExtensions
         feature.CreateVerb(VerbSubtypes.SET_CHECKPOINT, "Set Checkpoint")
         feature.CreateVerb(VerbSubtypes.RESTORE_HEALTH, "Restore Health")
         feature.CreateVerb(VerbSubtypes.IMPROVE_HEALTH, "Improve Health")
+        feature.CreateVerb(VerbSubtypes.IMPROVE_STAMINA, "Improve Stamina")
+        feature.CreateVerb(VerbSubtypes.IMPROVE_ATTACK, "Improve Attack")
+        feature.CreateVerb(VerbSubtypes.IMPROVE_DEFEND, "Improve Defend")
+        feature.CreateVerb(VerbSubtypes.IMPROVE_CLUMSINESS, "Improve Clumsiness")
     End Sub
 #End Region
 #End Region
