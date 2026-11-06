@@ -55,6 +55,6 @@ Font: DINOBYTE by mby, https://mby.itch.io/dinobyte, CC BY 4.0 (https://creative
 - The four paragraphs from "Hello." to "Literally." are the page's current text, kept as they are.
 - Ship day: `./shippit.sh --push` replaces the `html` channel. The page already embeds the browser build ("Run Metaphor"), so Kind of project stays HTML. Then remove the windows, linux and mac downloads (the 2026 Spectre console builds, `Metaphor.Spectre`) in the dashboard: the user's rule for every port (November 5, 2026).
 - Set the page's AI generation disclosure to Yes (Code), as for Handies for Cash!.
-- GitHub Pages: the repo is already public. Once the user enables Pages (branch main, /docs) and pushes, add the "Latest version" line above as an external link on the page too.
+- GitHub Pages is live (November 6, 2026): https://playdeezgames.github.io/clumsy-oaf-of-splorr/ (branch main, /docs), and the game is on the portal. Keep the "Latest version" line and add it as an external link on the page.
 - Upload `assets/cover.png` (new, drawn from the DINOBYTE sheet by `tools/make_cover.py`; the old cover was a screenshot of the Blazor title, still in git history as `ss/cover.png`) and the screenshots in `assets/screenshots/` (rendered from the real game by `tools/make_shots.sh`).
 - The page is a Soulslike Game Jam #3 submission; check the jam's rules on post-jam updates before ship day if unsure.
